@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
-
-export default function App() {
-    const [isLoaded, setIsLoaded] = useState(false);
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "https://cdn.connect.aws/connect-streams.js";
-        script.async = true;
-        script.onload = () => {
-            console.log("✅ Amazon Connect Streams API Loaded");
-            setIsLoaded(true);
-        };
-        script.onerror = () => console.error("❌ Failed to load Amazon Connect Streams API");
-        document.body.appendChild(script);
-    
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
-    
-
-    return (
-        <div>
-            <h1>Amazon Connect Agent Panel</h1>
-            {!isLoaded && <p>🔄 Loading Amazon Connect...</p>}
-            <div id="ccp-container" style={{ width: "400px", height: "600px" }}></div>
-        </div>
-    );
-}
+import React, { useEffect } from 'react';
+import 'amazon-connect-streams';
+ 
+const App= () => {
+  useEffect(() => {
+    window.connect.core.initCCP(document.getElementById('ccp-container'), {
+      ccpUrl: 'https://p3fusion-learning.my.connect.aws/ccp-v2/softphone',
+      loginPopup: true,
+      softphone: { allowFramedSoftphone: true }
+    });
+  },[]);
+ 
+  return (
+    <div>
+      <h2>My Custom Amazon Connect CCP</h2>
+      <div id="ccp-container" style={{ width: '100%', height: '600px', border: '1px solid #ccc' }}></div>
+    </div>
+  );
+};
+ 
+export default App;
