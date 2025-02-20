@@ -4,7 +4,7 @@ import 'amazon-connect-streams';
 const App= () => {
   useEffect(() => {
     window.connect.core.initCCP(document.getElementById('ccp-container'), {
-      ccpUrl: 'https://p3fusion-learning.my.connect.aws/ccp-v2/softphone',
+      ccpUrl: 'https://p3f-learn.my.connect.aws/ccp-v2/softphone',
       loginPopup: true,
       softphone: { allowFramedSoftphone: true }
     });
